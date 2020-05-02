@@ -1,0 +1,21 @@
+---
+- name: configuring apache2
+  hosts: 172.31.42.10
+  tasks:
+   - name: installing apache2
+     apt:
+      name: apache2
+      state: present
+   - name: change the index.html
+     copy:
+      content: "Hi prathap\n"
+      dest: /var/www/html/index.html
+   - name: restarting apache2
+     service:
+      name: apache2
+      state: restarted
+   - name: testing
+     uri:
+      url: http://172.31.42.10
+      status_code: 200
+...
